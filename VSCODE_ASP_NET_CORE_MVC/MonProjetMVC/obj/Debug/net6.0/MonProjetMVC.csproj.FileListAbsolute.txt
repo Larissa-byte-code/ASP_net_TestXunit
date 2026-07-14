@@ -1,0 +1,9 @@
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.csproj.AssemblyReference.cache
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\rpswa.dswa.cache.json
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.AssemblyInfoInputs.cache
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.AssemblyInfo.cs
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.RazorAssemblyInfo.cache
+C:\Users\User\Documents\VSCODE_ASP_NET_MVC\MonProjetMVC\obj\Debug\net6.0\MonProjetMVC.RazorAssemblyInfo.cs

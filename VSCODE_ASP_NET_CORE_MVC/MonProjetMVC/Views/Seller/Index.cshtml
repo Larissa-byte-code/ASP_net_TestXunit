@@ -1,0 +1,76 @@
+@model IEnumerable<MonProjetMVC.Models.TblSeller>
+@{
+    ViewData["Title"] = "Vendeurs";
+    var editSeller = ViewBag.EditSeller as MonProjetMVC.Models.TblSeller;
+}
+
+<h2>Gestion des Vendeurs</h2>
+
+<form asp-controller="Seller" asp-action="@(editSeller != null ? "Edit" : "Create")" method="post" class="mb-4">
+    <div class="row mb-2">
+        <div class="col-md-2">
+            <label>ID</label>
+            <input type="text" class="form-control" value="@(editSeller?.SellerId ?? ViewBag.NextId)" readonly />
+            <input type="hidden" name="SellerId" value="@(editSeller?.SellerId ?? ViewBag.NextId)" />
+        </div>
+        <div class="col-md-3">
+            <label>Code formaté</label>
+            <input type="text" class="form-control" value="@(editSeller?.SellerIdvC ?? ViewBag.NextCode)" readonly />
+            <input type="hidden" name="SellerIdvC" value="@(editSeller?.SellerIdvC ?? ViewBag.NextCode)" />
+        </div>
+        <div class="col-md-3">
+            <label>Nom</label>
+            <input type="text" name="SellerName" class="form-control" value="@(editSeller?.SellerName ?? "")" />
+        </div>
+        <div class="col-md-2">
+            <label>Âge</label>
+            <input type="number" name="SellerAge" class="form-control" value="@(editSeller?.SellerAge ?? 0)" />
+        </div>
+        <div class="col-md-3">
+            <label>Téléphone</label>
+            <div class="input-group">
+                <span class="input-group-text">+261</span>
+                <input type="text" name="SellerPhone" class="form-control" 
+                       value="@(editSeller?.SellerPhone?.Replace("+261","") ?? "")" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label>Mot de passe</label>
+            <input type="text" name="SellerPass" class="form-control" value="@(editSeller?.SellerPass ?? "")" />
+        </div>
+        <div class="col-md-2">
+            <label>Rôle</label>
+            <input type="text" name="Role" class="form-control" value="@(editSeller?.Role ?? "")" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        @(editSeller != null ? "Edit" : "Add")
+    </button>
+    <a asp-controller="Seller" asp-action="New" class="btn btn-secondary">New</a>
+</form>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>ID</th><th>Code</th><th>Nom</th><th>Âge</th><th>Téléphone</th><th>Mot de passe</th><th>Rôle</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.SellerId</td>
+            <td>@item.SellerIdvC</td>
+            <td>@item.SellerName</td>
+            <td>@item.SellerAge</td>
+            <td>@item.SellerPhone</td>
+            <td>@item.SellerPass</td>
+            <td>@item.Role</td>
+            <td>
+                <a asp-controller="Seller" asp-action="Edit" asp-route-id="@item.SellerId" class="btn btn-warning">Edit</a>
+                <a asp-controller="Seller" asp-action="Delete" asp-route-id="@item.SellerId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

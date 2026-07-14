@@ -1,0 +1,128 @@
+@model MonProjetMVC.Models.TblSelling
+@{
+    ViewData["Title"] = "Facture";
+    var details = ViewBag.Details as List<MonProjetMVC.Models.TblDetailSelling>
+                  ?? new List<MonProjetMVC.Models.TblDetailSelling>();
+}
+
+<style>
+    body        { font-family: Arial, sans-serif; font-size: 13px; color: #333; }
+    .header     { display: flex; justify-content: space-between; margin-bottom: 30px; }
+    .title      { font-size: 36px; font-weight: bold; letter-spacing: 4px; }
+    .info-block { margin-bottom: 20px; }
+    .info-block h4 { font-size: 12px; color: #888; margin: 0 0 4px 0; text-transform: uppercase; }
+    .info-block p  { margin: 0; font-size: 14px; }
+    .row-info   { display: flex; gap: 60px; margin-bottom: 30px; }
+
+    table       { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    thead th    { background: #e74c3c; color: white; padding: 10px; text-align: left; border: 1px solid #ccc; }
+    tbody td    { padding: 9px 10px; border: 1px solid #ccc; }
+
+    /* plus d’alternance blanc/gris */
+    tbody tr { background: transparent; }
+
+    .total-box  { text-align: right; }
+    .total      { font-size: 18px; font-weight: bold; color: #e74c3c; }
+    .footer     { margin-top: 40px; text-align: center; color: #888; font-style: italic; }
+    .paiement   { margin-top: 10px; }
+
+    @@media print {
+        .no-print { display: none; }
+    }
+</style>
+
+<!-- Boutons -->
+<div class="no-print mb-3">
+    <a asp-controller="Selling" asp-action="Pdf" asp-route-id="@Model.VenteId"
+       class="btn btn-danger">Télécharger PDF</a>
+    <button onclick="window.print()" class="btn btn-secondary">Imprimer</button>
+    <button onclick="window.close()" class="btn btn-outline-dark">Fermer</button>
+</div>
+
+<!-- Facture -->
+<div class="container">
+    <div class="header">
+        <div class="title">FACTURE</div>
+        <div>
+            <div class="info-block">
+                <h4>Facture N°</h4>
+                <p><strong>@Model.Numfacture</strong></p>
+            </div>
+            <div class="info-block">
+                <h4>Date</h4>
+                <p>@Model.DateVente.ToString("dd/MM/yyyy")</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-info">
+        <div class="info-block">
+            <h4>Facture de</h4>
+            <p>@Model.SellerName</p>
+        </div>
+        <div class="info-block">
+            <h4>Facture à</h4>
+            <p>@Model.ClientName</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Désignation</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Montant HT</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var d in details)
+        {
+            <tr>
+                <td>@d.ProductName</td>
+                <td>@d.Qty</td>
+                <td>@d.Price.ToString("N2")</td>
+                <td>@d.LineTotal.ToString("N2")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <hr />
+
+    <div class="total-box">
+        <p>Montant total : <span class="total">@Model.TotalAmount.ToString("N2") Ar</span></p>
+    </div>
+
+    <div class="paiement">
+        <strong>Mode de paiement :</strong> @Model.ModeDePaiement
+    </div>
+
+    <div class="footer">
+        <p style="font-size:40px; color: SlateBlue; font-family: cursive;">merci</p>
+        <p>IBAN: MG12 1234 5678 &nbsp;|&nbsp; SWIFT/BIC: ABCXXXXXX</p>
+    </div>
+</div>
+@*
+1. Dans le controller — l'action Invoice envoie un objet TblSelling à la vue :
+public IActionResult Invoice(int id)
+{
+    var vente = _context.TblSelling.Find(id); // cherche en base
+    ViewBag.Details = details;
+    return View(vente);  // <-- envoie "vente" à la vue comme @Model
+}
+2. Dans la vue — on déclare le type attendu avec @model :
+@model MonProjetMVC.Models.TblSelling
+Cette ligne dit à Razor : "le @Model que je vais recevoir est de type TblSelling".
+3. Ensuite tu accèdes aux propriétés de TblSelling via @Model. :
+@Model.Numfacture     → vente.Numfacture     → "Facture-001-2026"
+@Model.DateVente      → vente.DateVente      → 01/07/2026
+@Model.SellerName     → vente.SellerName     → "Jean Rakoto"
+@Model.ClientName     → vente.ClientName     → "Jean Paul"
+@Model.TotalAmount    → vente.TotalAmount    → 25000.00
+@Model.ModeDePaiement → vente.ModeDePaiement → "Cheque"
+@Model.VenteId        → vente.VenteId        → 14
+
+*@

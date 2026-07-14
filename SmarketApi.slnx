@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/ASP_NET_APIREST/">
+    <Project Path="ASP_NET_APIREST/SmarketApi/SmarketApi.csproj" />
+  </Folder>
+  <Project Path="SmarketApi.Tests/SmarketApi.Tests.csproj" />
+</Solution>

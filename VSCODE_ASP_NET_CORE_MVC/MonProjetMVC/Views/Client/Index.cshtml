@@ -1,0 +1,174 @@
+@model IEnumerable<MonProjetMVC.Models.TblClient>
+@{
+    ViewData["Title"] = "Clients";
+    var editClient = ViewBag.EditClient as MonProjetMVC.Models.TblClient;
+}
+
+<h2>Gestion des Clients</h2>
+
+@if (TempData["Debug"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Erreurs :</strong> @TempData["Debug"]
+    </div>
+}
+
+@if (editClient != null)
+{
+    <h4 class="text-warning">Modifier le client : @editClient.ClientName</h4>
+    <form asp-controller="Client" asp-action="Edit" method="post" class="mb-4">
+
+        <input type="hidden" name="ClientId"   value="@editClient.ClientId" />
+        <input type="hidden" name="ClientCode" value="@editClient.ClientCode" />
+        <input type="hidden" name="DateCreated" value="@editClient.DateCreated.ToString("o")" />
+
+        <div class="row mb-2">
+            <div class="col-md-2">
+                <label>ID</label>
+                <input type="text" class="form-control"
+                       value="@editClient.ClientId" readonly />
+            </div>
+            <div class="col-md-3">
+                <label>Code formaté</label>
+                <input type="text" class="form-control"
+                       value="@editClient.ClientCode" readonly />
+            </div>
+            <div class="col-md-3">
+                <label>Nom</label>
+                <input type="text" name="ClientName" class="form-control"
+                       value="@editClient.ClientName" required />
+            </div>
+            <div class="col-md-2">
+                <label>Téléphone</label>
+                <input type="text" name="ClientPhone" class="form-control"
+                       value="@editClient.ClientPhone" required />
+            </div>
+            <div class="col-md-3">
+                <label>Email</label>
+                <input type="email" name="ClientEmail" class="form-control"
+                       value="@editClient.ClientEmail" required />
+            </div>
+            <div class="col-md-4">
+                <label>Adresse</label>
+                <input type="text" name="ClientAddress" class="form-control"
+                       value="@editClient.ClientAddress" required />
+            </div>
+            <div class="col-md-3 mt-2">
+                <label>Actif</label><br />
+                <input type="checkbox" name="IsActive"
+                       @(editClient.IsActive ? "checked" : "") />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning">
+            Enregistrer modification
+        </button>
+        <a asp-controller="Client" asp-action="Index" class="btn btn-secondary">
+            Annuler
+        </a>
+    </form>
+}
+else
+{
+    <h4 class="text-success">Ajouter un nouveau client</h4>
+    <form asp-controller="Client" asp-action="Create" method="post" class="mb-4">
+
+        <input type="hidden" name="ClientId"    value="0" />
+        <input type="hidden" name="ClientCode"  value="@ViewBag.NextCode" />
+        <input type="hidden" name="DateCreated" value="@DateTime.Now.ToString("o")" />
+
+        <div class="row mb-2">
+            <div class="col-md-2">
+                <label>ID</label>
+                <input type="text" class="form-control"
+                       value="@ViewBag.NextId" readonly />
+            </div>
+            <div class="col-md-3">
+                <label>Code formaté</label>
+                <input type="text" class="form-control"
+                       value="@ViewBag.NextCode" readonly />
+            </div>
+            <div class="col-md-3">
+                <label>Nom</label>
+                <input type="text" name="ClientName" class="form-control"
+                       placeholder="Nom du client" required />
+            </div>
+            <div class="col-md-2">
+                <label>Téléphone</label>
+                <input type="text" name="ClientPhone" class="form-control"
+                       placeholder="Téléphone" required />
+            </div>
+            <div class="col-md-3">
+                <label>Email</label>
+                <input type="email" name="ClientEmail" class="form-control"
+                       placeholder="Email" required />
+            </div>
+            <div class="col-md-4">
+                <label>Adresse</label>
+                <input type="text" name="ClientAddress" class="form-control"
+                       placeholder="Adresse" required />
+            </div>
+            <div class="col-md-3 mt-2">
+                <label>Actif</label><br />
+                <input type="checkbox" name="IsActive" checked />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <a asp-controller="Client" asp-action="New" class="btn btn-secondary">New</a>
+
+    </form>
+}
+
+<hr />
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Adresse</th>
+            <th>Date création</th>
+            <th>Actif</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ClientId</td>
+            <td>@item.ClientCode</td>
+            <td>@item.ClientName</td>
+            <td>@item.ClientPhone</td>
+            <td>@item.ClientEmail</td>
+            <td>@item.ClientAddress</td>
+            <td>@item.DateCreated.ToString("dd/MM/yyyy HH:mm")</td>
+            <td>
+                @if (item.IsActive)
+                {
+                    <span class="badge bg-success">Actif</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Inactif</span>
+                }
+            </td>
+            <td>
+                <a asp-controller="Client"
+                   asp-action="Edit"
+                   asp-route-id="@item.ClientId"
+                   class="btn btn-warning btn-sm">Edit</a>
+                <a asp-controller="Client"
+                   asp-action="Delete"
+                   asp-route-id="@item.ClientId"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Supprimer ce client ?')">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

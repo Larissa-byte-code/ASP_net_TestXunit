@@ -1,0 +1,6 @@
+@SmarketApi_HostAddress = http://localhost:5121
+
+GET {{SmarketApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

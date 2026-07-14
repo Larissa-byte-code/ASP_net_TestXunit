@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MonProjetMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MonProjetMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+</head>
+<body style="background-color:#1c1c1c; color:#e0e0e0;">
+    <div class="d-flex" style="height:100vh;">
+        <!-- Sidebar -->
+        <nav class="bg-dark p-3" style="width:220px;">
+            <h4 class="text-primary">Stock Management</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-house-door-fill text-warning"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Product" asp-action="Index">
+                        <i class="bi bi-box-seam"></i> Produits
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Category" asp-action="Index">
+                        <i class="bi bi-tags"></i> Catégories
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Client" asp-action="Index">
+                        <i class="bi bi-people"></i> Clients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Seller" asp-action="Index">
+                        <i class="bi bi-person-badge"></i> Vendeurs
+                    </a>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Selling" asp-action="Index">Ventes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="StockMouvement" asp-action="Index">Stock Mouvements</a>
+                </li>
+                -->
+
+
+                
+            </ul>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="flex-grow-1 p-4" style="overflow-y:auto; max-height:100vh;">
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

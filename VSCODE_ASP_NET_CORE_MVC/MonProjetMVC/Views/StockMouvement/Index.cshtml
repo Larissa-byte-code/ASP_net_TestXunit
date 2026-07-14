@@ -1,0 +1,186 @@
+@model MonProjetMVC.ViewModels.StockPageViewModel
+@{
+    ViewData["Title"] = "Gestion du Stock";
+    var stockSelected = ViewBag.StockSelected as MonProjetMVC.Models.TblStock;
+    string typeMouvement = ViewBag.TypeMouvement as string ?? "";
+    var products = ViewBag.Products as List<MonProjetMVC.Models.TblProduct> ?? new List<MonProjetMVC.Models.TblProduct>();
+    var editStock = ViewBag.EditStock as MonProjetMVC.Models.TblStock;
+}
+
+<h2>Gestion du Stock</h2>
+
+@if (TempData["Debug"] != null)
+{
+    <div class="alert alert-danger">@TempData["Debug"]</div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (stockSelected != null)
+{
+    <div class="card p-3 mb-4 @(typeMouvement == "IN" ? "border-success" : "border-danger")" style="max-width: 600px;">
+        <h4 class="@(typeMouvement == "IN" ? "text-success" : "text-danger")">
+            @(typeMouvement == "IN" ? "Entrée de stock" : "Sortie de stock")
+        </h4>
+        <p><strong>Produit ID :</strong> @stockSelected.ProductId</p>
+        <p><strong>Quantité disponible actuelle :</strong> @stockSelected.QtyDisponible</p>
+
+        <form asp-controller="StockMouvement" asp-action="@(typeMouvement == "IN" ? "INConfirm" : "OUTConfirm")" method="post">
+            <input type="hidden" name="stockId" value="@stockSelected.StockId" />
+            <input type="hidden" name="productId" value="@stockSelected.ProductId" />
+
+            <div class="mb-2" style="max-width: 250px;">
+                <label>Quantité</label>
+                <input type="number" name="qty" class="form-control" min="1" required />
+            </div>
+
+            <button type="submit" class="btn @(typeMouvement == "IN" ? "btn-success" : "btn-danger")">
+                Confirmer @(typeMouvement == "IN" ? "l'entrée" : "la sortie")
+            </button>
+            <a asp-controller="StockMouvement" asp-action="Index" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+}
+
+<!-- Formulaire pour ajouter ou éditer un Stock -->
+<form asp-controller="StockMouvement" asp-action="@(editStock != null ? "Edit" : "Create")" method="post" class="mb-4">
+    <div class="row mb-2">
+        <div class="col-md-2">
+            <label>ID Stock</label>
+            <input type="text" id="stockIdField" name="StockId"
+                   class="form-control"
+                   value="@(editStock != null ? editStock.StockId : ViewBag.NextStockId)" readonly />
+        </div>
+        <div class="col-md-2">
+            <label>Produit</label>
+            <select name="ProductId" id="prdSelect" class="form-control">
+                <option value="">-- Choisir produit --</option>
+                @foreach (var p in products)
+                {
+                    if (editStock != null && editStock.ProductId == p.prdId.ToString())
+                    {
+                        <option value="@p.prdId" data-cat="@p.prdCat" selected>@p.prdId - @p.prdName</option>
+                    }
+                    else
+                    {
+                        <option value="@p.prdId" data-cat="@p.prdCat">@p.prdId - @p.prdName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>Catégorie</label>
+            <input type="text" name="CatId" id="catDisplay" class="form-control"
+                   value="@(editStock != null ? editStock.CatId : "")" readonly />
+        </div>
+        <div class="col-md-2">
+            <label>Quantité dispo</label>
+            <input type="number" name="QtyDisponible" id="qtyField" class="form-control"
+                   value="@(editStock != null ? editStock.QtyDisponible : 0)" />
+        </div>
+        <div class="col-md-2">
+            <label>Ajout le</label>
+            <input type="date" name="DateMaj" id="dateField" class="form-control"
+                   value="@(editStock != null && editStock.DateMaj != null ? ((DateTime)editStock.DateMaj).ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" />
+        </div>
+        <div class="col-md-2">
+            <label>Code Stock</label>
+            <input type="text" id="codeField" class="form-control"
+                   value="@(editStock != null ? editStock.CodeFormate : ViewBag.NextCode)" readonly />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">@(editStock != null ? "Mettre à jour" : "Ajouter")</button>
+    <a asp-controller="StockMouvement" asp-action="New" class="btn btn-secondary">New</a>
+</form>
+
+<!-- Tableau des Stocks -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Produit</th>
+            <th>Catégorie</th>
+            <th>Quantité dispo</th>
+            <th>Dernière maj</th>
+            <th>Code Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var stock in Model.Stocks)
+    {
+        <tr>
+            <td>@stock.StockId</td>
+            <td>@stock.ProductId</td>
+            <td>@stock.CatId</td>
+            <td>@stock.QtyDisponible</td>
+            <td>@stock.DateMaj?.ToShortDateString()</td>
+            <td>@stock.CodeFormate</td>
+            <td>
+                <a asp-controller="StockMouvement" asp-action="Edit" asp-route-id="@stock.StockId" class="btn btn-warning">Edit</a>
+                <a asp-controller="StockMouvement" asp-action="Delete" asp-route-id="@stock.StockId" class="btn btn-danger">Delete</a>
+                <a asp-controller="StockMouvement" asp-action="IN" asp-route-id="@stock.StockId" class="btn btn-success">IN</a>
+                <a asp-controller="StockMouvement" asp-action="OUT" asp-route-id="@stock.StockId" class="btn btn-secondary">OUT</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<hr />
+
+<h2>Mouvements de Stock</h2>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>ID Mouvement</th>
+            <th>Produit</th>
+            <th>Type</th>
+            <th>Quantité</th>
+            <th>Date</th>
+            <th>Ref Vente</th>
+            <th>Commentaire</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var mouv in Model.Mouvements)
+    {
+        <tr>
+            <td>@mouv.MouvementId</td>
+            <td>@mouv.ProductId</td>
+            <td>
+                @if (!string.IsNullOrEmpty(mouv.TypeMouvement) && mouv.TypeMouvement.Trim().ToUpper() == "IN")
+                {
+                    <span class="badge bg-success">IN</span>
+                }
+                else if (!string.IsNullOrEmpty(mouv.TypeMouvement) && mouv.TypeMouvement.Trim().ToUpper() == "OUT")
+                {
+                    <span class="badge bg-danger">OUT</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">?</span>
+                }
+            </td>
+
+            <td>@mouv.Qty</td>
+            <td>@mouv.DateMouvement?.ToShortDateString()</td>
+            <td>
+                @if (mouv.RefVenteId == null)
+                {
+                    @:NULL
+                }
+                
+                else
+                {
+                    @mouv.RefVenteId
+                }
+            </td>
+            <td>@mouv.Commentaire</td>
+        </tr>
+    }
+    </tbody>
+</table>

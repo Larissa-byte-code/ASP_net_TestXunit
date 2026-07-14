@@ -1,0 +1,206 @@
+@model MonProjetMVC.Models.VenteIndexViewModel
+@{
+    ViewData["Title"] = "Selling";
+    var products  = ViewBag.Products as List<MonProjetMVC.Models.TblProduct> ?? new List<MonProjetMVC.Models.TblProduct>();
+    var sellers   = ViewBag.Sellers as List<MonProjetMVC.Models.TblSeller> ?? new List<MonProjetMVC.Models.TblSeller>();
+    var customers = ViewBag.Customers as List<MonProjetMVC.Models.TblClient> ?? new List<MonProjetMVC.Models.TblClient>();
+    var paymentMethods = ViewBag.PaymentMethods as List<string> ?? new List<string>();
+}
+
+<h2 class="text-center"><u>Selling</u></h2>
+
+@if (TempData["Debug"] != null)
+{
+    <div class="alert alert-danger">
+        <strong>Erreur :</strong> @TempData["Debug"]
+    </div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success d-flex justify-content-between align-items-center">
+        <span>@TempData["Success"]</span>
+        @if (TempData["VenteId"] != null)
+        {
+            <a href="/Selling/Invoice/@TempData["VenteId"]"
+               target="_blank"
+               class="btn btn-danger btn-sm ms-3">
+                Voir la facture
+            </a>
+        }
+    </div>
+}
+
+<form asp-controller="Selling" asp-action="Out" method="post">
+
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label>ID</label>
+            <input asp-for="Selling.VenteId" class="form-control" value="@ViewBag.NextId" readonly />
+        </div>
+        <div class="col-md-3">
+            <label>Invoice numbers</label>
+            <input asp-for="Selling.Numfacture" class="form-control" value="@ViewBag.NextInvoice" readonly />
+        </div>
+        <div class="col-md-3">
+            <label>Date</label>
+            <input asp-for="Selling.DateVente" type="date" class="form-control"
+                   value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-4">
+            <label>Payment method</label>
+            <select asp-for="Selling.ModeDePaiement" class="form-control">
+                <option value="">Select the payment method</option>
+                @foreach (var pm in paymentMethods)
+                {
+                    <option value="@pm">@pm</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label>Seller</label>
+            <select asp-for="Selling.SellerName" class="form-control">
+                <option value="">Select ID Seller</option>
+                @foreach (var s in sellers)
+                {
+                    <option value="@s.SellerName">@s.SellerId - @s.SellerName</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Customer</label>
+            <select asp-for="Selling.ClientName" class="form-control">
+                <option value="">Select ID Customer</option>
+                @foreach (var c in customers)
+                {
+                    <option value="@c.ClientName">@c.ClientId - @c.ClientName</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Total Amount</label>
+            <input asp-for="Selling.TotalAmount" class="form-control" readonly id="TotalAmount" />
+        </div>
+    </div>
+
+    <h4>Details Produits</h4>
+    <table class="table table-bordered" id="detailsTable">
+        <thead>
+            <tr>
+                <th>ProductId</th>
+                <th>Nom du produit</th>
+                <th>Categorie</th>
+                <th>Quantite</th>
+                <th>Prix</th>
+                <th>Total ligne</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Details.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <select asp-for="Details[i].ProductId" class="form-control product-select">
+                            <option value="">-- Choisir produit --</option>
+                            @foreach (var p in products)
+                            {
+                                <option value="@p.prdId" data-name="@p.prdName" data-cat="@p.prdCat">
+                                    @p.prdId - @p.prdName
+                                </option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input asp-for="Details[i].ProductName" class="form-control product-name" readonly />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control product-cat" readonly />
+                    </td>
+                    <td>
+                        <input asp-for="Details[i].Qty" type="number" class="form-control qty" />
+                    </td>
+                    <td>
+                        <input asp-for="Details[i].Price" type="number" step="0.01" class="form-control price" />
+                    </td>
+                    <td>
+                        <input asp-for="Details[i].LineTotal" type="number" step="0.01" class="form-control lineTotal" readonly />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-success" id="addRow">+ Nouvelle ligne</button>
+
+    <div class="text-center mt-3">
+        <a asp-controller="Selling" asp-action="New" class="btn btn-outline-light px-4">New</a>
+        <button type="submit" class="btn btn-warning px-4">OUT</button>
+        <button type="button" class="btn btn-danger px-4" id="btnInvoice">Invoice</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script>
+        const productsData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(products.Select(p => new { id = p.prdId, name = p.prdName, cat = p.prdCat })));
+
+        function attachRowEvents(row) {
+            row.querySelector(".product-select").addEventListener("change", function () {
+                let selected = this.options[this.selectedIndex];
+                row.querySelector(".product-name").value = selected.getAttribute("data-name") || "";
+                row.querySelector(".product-cat").value  = selected.getAttribute("data-cat")  || "";
+                updateTotals();
+            });
+
+            row.querySelectorAll(".qty, .price").forEach(input => {
+                input.addEventListener("input", updateTotals);
+            });
+        }
+
+        document.getElementById("addRow").addEventListener("click", function () {
+            let tbody = document.querySelector("#detailsTable tbody");
+            let index = tbody.querySelectorAll("tr").length;
+            let row   = document.createElement("tr");
+            row.innerHTML = `
+                <td>
+                    <select name="Details[${index}].ProductId" class="form-control product-select">
+                        <option value="">-- Choisir produit --</option>
+                        ${productsData.map(p => `<option value="${p.id}" data-name="${p.name}" data-cat="${p.cat}">${p.id} - ${p.name}</option>`).join("")}
+                    </select>
+                </td>
+                <td><input name="Details[${index}].ProductName" class="form-control product-name" readonly /></td>
+                <td><input type="text" class="form-control product-cat" readonly /></td>
+                <td><input name="Details[${index}].Qty" type="number" class="form-control qty" /></td>
+                <td><input name="Details[${index}].Price" type="number" step="0.01" class="form-control price" /></td>
+                <td><input name="Details[${index}].LineTotal" type="number" step="0.01" class="form-control lineTotal" readonly /></td>
+            `;
+            tbody.appendChild(row);
+            attachRowEvents(row);
+        });
+
+        function updateTotals() {
+            let total = 0;
+            document.querySelectorAll("#detailsTable tbody tr").forEach(row => {
+                let qty       = parseFloat(row.querySelector(".qty").value)   || 0;
+                let price     = parseFloat(row.querySelector(".price").value) || 0;
+                let lineTotal = qty * price;
+                row.querySelector(".lineTotal").value = lineTotal.toFixed(2);
+                total += lineTotal;
+            });
+            document.getElementById("TotalAmount").value = total.toFixed(2);
+        }
+
+        document.getElementById("btnInvoice").addEventListener("click", function () {
+            let venteId = document.querySelector('input[name="Selling.VenteId"]').value;
+            if (venteId && venteId != "0") {
+                window.open('/Selling/Invoice/' + venteId, '_blank');
+            } else {
+                alert("Veuillez d'abord enregistrer la vente (OUT) avant de generer la facture.");
+            }
+        });
+
+        document.querySelectorAll("#detailsTable tbody tr").forEach(row => attachRowEvents(row));
+    </script>
+}
