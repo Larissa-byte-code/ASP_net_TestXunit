@@ -38,8 +38,8 @@ namespace SmarketApi.Tests
             var newCategory = new TblCategory 
             { 
                 CatIdvC = "valeur fictive",   
-                CatName = "TestCat", 
-                CatDes = "Description test" 
+                CatName = "lar", 
+                CatDes = "Description lar" 
             };
 
             var response = await _client.PostAsJsonAsync("/api/categories/add", newCategory);
@@ -50,8 +50,9 @@ namespace SmarketApi.Tests
             Assert.NotNull(created);
 
             // Vérifie que l’API a bien enregistré et renvoyé les données
-            Assert.Equal("TestCat", created!.CatName);
-            Assert.Equal("Description test", created.CatDes);
+            Assert.Equal("lar", created!.CatName);
+            Assert.Equal("Description lar", created.CatDes);
+
         }
 
         // Test PUT /api/categories/update/{id}

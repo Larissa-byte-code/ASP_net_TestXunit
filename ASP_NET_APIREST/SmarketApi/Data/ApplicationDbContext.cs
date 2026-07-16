@@ -12,7 +12,7 @@ namespace SmarketApi.Data
         //EF Core → simplifie l’accès à la base (mapping, LINQ, CRUD, migrations).
 
         //Sécurité serveur → protège ton API avec authentification, autorisation, validation, HTTPS.
-        public DbSet<TblUser> TblUsers { get; set; } = null!;
+        public DbSet<TblUser> TblUser { get; set; } = null!;
         public DbSet<TblCategory> TblCategory { get; set; } = null!;
         public DbSet<TblClient> TblClient { get; set; } = null!;                                             
         public DbSet<TblDetailSelling> TblDetailSelling { get; set; } = null!;

@@ -33,7 +33,7 @@ namespace SmarketApi.Controllers
                 Role = role
             };
 
-            _context.TblUsers.Add(user);
+            _context.TblUser.Add(user);
             _context.SaveChanges();
 
             return Ok("Utilisateur créé !");
@@ -43,7 +43,7 @@ namespace SmarketApi.Controllers
         [HttpPost("login")]
         public IActionResult Login(string email, string password)
         {
-            var user = _context.TblUsers.SingleOrDefault(u => u.Email == email);
+            var user = _context.TblUser.SingleOrDefault(u => u.Email == email);
             if (user == null) return Unauthorized();
 
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
