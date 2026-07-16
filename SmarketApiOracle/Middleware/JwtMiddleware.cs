@@ -44,6 +44,7 @@ namespace SmarketApiOracle.Middleware
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
+                //"nameid"====NameIdentifier abreger dans AuthService: "new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),"
                 var userId = jwtToken.Claims.First(x => x.Type == "nameid").Value;
 
                 // Tu peux stocker l’ID utilisateur dans le HttpContext
