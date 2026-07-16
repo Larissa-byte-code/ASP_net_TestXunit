@@ -21,6 +21,7 @@ namespace SmarketApiOracle.Services
 
         public async Task<TblCategory> AddAsync(TblCategory category)
         {
+            //Vérifie si la table TblCategory contient au moins une ligne.
             int nextId = _db.TblCategory.Any()
                 ? _db.TblCategory.Max(c => c.CatId) + 1
                 : 1;
