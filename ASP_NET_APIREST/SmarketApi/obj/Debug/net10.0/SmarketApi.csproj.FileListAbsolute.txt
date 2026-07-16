@@ -1,5 +1,6 @@
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\appsettings.Development.json
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\appsettings.json
+C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\global.json
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\SmarketApi.staticwebassets.endpoints.json
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\SmarketApi.exe
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\SmarketApi.deps.json
@@ -8,7 +9,9 @@ C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\SmarketA
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\SmarketApi.pdb
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Azure.Identity.dll
+C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\BCrypt-Net-Next.dll
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Humanizer.dll
+C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
@@ -141,6 +144,7 @@ C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\SmarketA
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\SmarketApi.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\SmarketApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\SmarketApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\SmarketApi.sourcelink.json
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\User\Documents\C#\ASP_NET_APIREST\SmarketApi\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json

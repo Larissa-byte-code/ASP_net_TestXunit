@@ -9,14 +9,17 @@ namespace SmarketApi.Data
             : base(options) { }
 
         // Tes tables réelles de SMarketdb
-    
-        public DbSet<TblCategory> TblCategory { get; set; }
-        public DbSet<TblClient> TblClient { get; set; }                                              
-        public DbSet<TblDetailSelling> TblDetailSelling { get; set; }
-        public DbSet<TblProduct> TblProduct { get; set; }
-        public DbSet<TblSeller> TblSeller { get; set; }
-        public DbSet<TblSelling> TblSelling { get; set; }
-        public DbSet<TblStock> TblStock { get; set; }
-        public DbSet<TblStockMouvement> TblStockMouvement { get; set; }
+        //EF Core → simplifie l’accès à la base (mapping, LINQ, CRUD, migrations).
+
+        //Sécurité serveur → protège ton API avec authentification, autorisation, validation, HTTPS.
+        public DbSet<TblUser> TblUsers { get; set; } = null!;
+        public DbSet<TblCategory> TblCategory { get; set; } = null!;
+        public DbSet<TblClient> TblClient { get; set; } = null!;                                             
+        public DbSet<TblDetailSelling> TblDetailSelling { get; set; } = null!;
+        public DbSet<TblProduct> TblProduct { get; set; } = null!;
+        public DbSet<TblSeller> TblSeller { get; set; } = null!;
+        public DbSet<TblSelling> TblSelling { get; set; } = null!;
+        public DbSet<TblStock> TblStock { get; set; } = null!;
+        public DbSet<TblStockMouvement> TblStockMouvement { get; set; } = null!;
     }
 }

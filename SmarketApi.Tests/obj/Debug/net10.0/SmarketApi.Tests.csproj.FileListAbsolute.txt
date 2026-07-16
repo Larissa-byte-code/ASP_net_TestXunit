@@ -6,6 +6,7 @@ C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\SmarketApi.deps.js
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\SmarketApi.runtimeconfig.json
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\appsettings.Development.json
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\appsettings.json
+C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\global.json
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\SmarketApi.staticwebassets.endpoints.json
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\SmarketApi.exe
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\testhost.exe
@@ -294,6 +295,8 @@ C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\refs\System.Xml.XP
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\refs\WindowsBase.dll
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\Azure.Identity.dll
+C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\BCrypt-Net-Next.dll
+C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.Mvc.Testing.dll
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\User\Documents\C#\SmarketApi.Tests\bin\Debug\net10.0\Microsoft.AspNetCore.TestHost.dll
@@ -454,6 +457,7 @@ C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketApi.Tests.G
 C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketApi.Tests.AssemblyInfoInputs.cache
 C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketApi.Tests.AssemblyInfo.cs
 C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketApi.Tests.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketApi.Tests.sourcelink.json
 C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketA.CDF89B76.Up2Date
 C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\SmarketApi.Tests.dll
 C:\Users\User\Documents\C#\SmarketApi.Tests\obj\Debug\net10.0\refint\SmarketApi.Tests.dll

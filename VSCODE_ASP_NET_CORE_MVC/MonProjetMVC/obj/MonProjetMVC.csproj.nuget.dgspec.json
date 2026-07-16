@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
             "DinkToPdf": {
               "target": "Package",
               "version": "[1.0.8, )"
