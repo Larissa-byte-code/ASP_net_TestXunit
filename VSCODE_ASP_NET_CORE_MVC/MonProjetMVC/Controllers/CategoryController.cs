@@ -36,7 +36,10 @@ namespace MonProjetMVC.Controllers
 
         public IActionResult Index()
         {
+            //Va chercher toutes les lignes.
+            //SELECT * FROM TblCategory
             var categories = _context.TblCategory.ToList();
+            //Est-ce que la table contient au moins une ligne ?
             int nextId = _context.TblCategory.Any()
                 ? _context.TblCategory.Max(c => c.CatId) + 1
                 : 1;
@@ -53,6 +56,7 @@ namespace MonProjetMVC.Controllers
             int nextId = _context.TblCategory.Any()
                 ? _context.TblCategory.Max(c => c.CatId) + 1
                 : 1;
+                //ViewBag permet d'envoyer une donnée à la Vue. RAZOR
             ViewBag.NextId   = nextId;
             ViewBag.NextCode = $"Cat-{nextId:D3}-{DateTime.Now.Year}";
             var categories = _context.TblCategory.ToList();

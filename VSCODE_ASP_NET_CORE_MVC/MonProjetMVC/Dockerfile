@@ -1,4 +1,4 @@
-# 🛠️ Étape 1 : Build (compilation du projet)
+# Étape 1 : Build (compilation du projet)
 # On utilise l'image officielle .NET SDK pour compiler ton projet
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
@@ -15,7 +15,7 @@ RUN dotnet restore MonProjetMVC.csproj
 RUN dotnet publish MonProjetMVC.csproj -c Release -o /app
 
 
-# 🛠️ Étape 2 : Runtime (exécution du projet)
+# Étape 2 : Runtime (exécution du projet)
 # On utilise l'image officielle .NET Runtime (plus légère, juste pour exécuter ton app)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
