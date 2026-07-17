@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SmarketApiOracle.Data;
 using SmarketApiOracle.Models;
@@ -31,34 +35,37 @@ namespace SmarketApiOracle.Services
             using var transaction = await _db.Database.BeginTransactionAsync();
             try
             {
+                // Initialisation
                 model.Selling.VenteId = 0;
                 model.Selling.DateVente = model.Selling.DateVente == default
                     ? DateTime.Now
                     : model.Selling.DateVente;
 
                 model.Selling.TotalAmount = model.Details
-                    .Where(d => d.ProductId != 0 && d.Qty > 0)
+                    .Where(d => !string.IsNullOrEmpty(d.ProductId) && d.Qty > 0)
                     .Sum(d => d.Qty * d.Price);
 
-                model.Selling.Numfacture = "TEMP";
+                model.Selling.Numfacture = "PENDING";
                 _db.TblSelling.Add(model.Selling);
                 await _db.SaveChangesAsync();
 
+                // Génération du numéro de facture
                 int venteId = model.Selling.VenteId;
                 string year = DateTime.Now.Year.ToString();
-                model.Selling.Numfacture = $"Facture-{venteId:D3}-{year}";
+                model.Selling.Numfacture = $"FACTURE-{venteId:D3}-{year}";
                 await _db.SaveChangesAsync();
 
+                // Ajout des détails et mise à jour du stock
                 foreach (var detail in model.Details)
                 {
-                    if (detail.ProductId == 0 || detail.Qty <= 0) continue;
+                    if (string.IsNullOrEmpty(detail.ProductId) || detail.Qty <= 0) continue;
 
                     detail.VenteId   = venteId;
                     detail.LineTotal = detail.Qty * detail.Price;
                     _db.TblDetailSelling.Add(detail);
 
-                    string productIdStr = detail.ProductId.ToString();
-                    var stock = _db.TblStock.FirstOrDefault(s => s.ProductId == productIdStr);
+                    // Comparaison en string
+                    var stock = _db.TblStock.FirstOrDefault(s => s.ProductId == detail.ProductId);
 
                     if (stock != null && stock.QtyDisponible >= detail.Qty)
                     {
@@ -69,7 +76,7 @@ namespace SmarketApiOracle.Services
                     var mouvement = new TblStockMouvement
                     {
                         MouvementId   = Guid.NewGuid().ToString().Substring(0, 10),
-                        ProductId     = productIdStr,
+                        ProductId     = detail.ProductId, // déjà string
                         TypeMouvement = "OUT",
                         Qty           = detail.Qty,
                         DateMouvement = DateTime.Now,

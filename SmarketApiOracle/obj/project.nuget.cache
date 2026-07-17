@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Qxb8CnXvBXM=",
+  "dgSpecHash": "0jTKqQVD/jo=",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle\\SmarketApiOracle.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,7 @@
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identitymodel.protocols\\8.19.2\\microsoft.identitymodel.protocols.8.19.2.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\8.19.2\\microsoft.identitymodel.protocols.openidconnect.8.19.2.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.19.2\\microsoft.identitymodel.tokens.8.19.2.nupkg.sha512",
-    "C:\\Users\\User\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.openapi\\2.2.0\\microsoft.openapi.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\oracle.entityframeworkcore\\10.23.26200\\oracle.entityframeworkcore.10.23.26200.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\oracle.manageddataaccess.core\\23.26.200\\oracle.manageddataaccess.core.23.26.200.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
@@ -30,9 +30,21 @@
   ],
   "logs": [
     {
+      "code": "NU1603",
+      "level": "Warning",
+      "message": "SmarketApiOracle dépend de Microsoft.OpenApi (>= 2.1.3) mais Microsoft.OpenApi 2.1.3 est introuvable. Microsoft.OpenApi 2.2.0 a été résolu à la place.",
+      "projectPath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle\\SmarketApiOracle.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle\\SmarketApiOracle.csproj",
+      "libraryId": "Microsoft.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
       "code": "NU1903",
       "level": "Warning",
-      "message": "Le package 'Microsoft.OpenApi' 2.0.0 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc.",
+      "message": "Le package 'Microsoft.OpenApi' 2.2.0 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc.",
       "projectPath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle\\SmarketApiOracle.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle\\SmarketApiOracle.csproj",

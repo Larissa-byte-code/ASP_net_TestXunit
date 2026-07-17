@@ -1,11 +1,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema; 
+
 
 namespace SmarketApiOracle.Models
 {
     public class TblStockMouvement
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string MouvementId { get; set; } = "";  // nchar(10)
         public string? ProductId { get; set; }         // nvarchar(50)
         public string? TypeMouvement { get; set; }     // nchar(10)

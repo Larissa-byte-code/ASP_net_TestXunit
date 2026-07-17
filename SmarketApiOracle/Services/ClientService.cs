@@ -21,16 +21,17 @@ namespace SmarketApiOracle.Services
 
         public async Task<TblClient> AddAsync(TblClient client)
         {
-            int nextId = _db.TblClient.Any()
-                ? _db.TblClient.Max(c => c.ClientId) + 1
-                : 1;
-
-            client.ClientId    = nextId;
-            client.ClientCode  = $"CL-{nextId:D3}-{DateTime.Now.Year}";
-            client.DateCreated = DateTime.Now;
-
+            // Étape 1 : insertion → Oracle génère ClientId
             _db.TblClient.Add(client);
             await _db.SaveChangesAsync();
+
+            // Étape 2 : génération du code formaté
+            client.ClientCode = $"CL-{client.ClientId:D3}-{DateTime.Now.Year}";
+            client.DateCreated = DateTime.Now;
+
+            // Étape 3 : sauvegarde directe
+            await _db.SaveChangesAsync();
+
             return client;
         }
 

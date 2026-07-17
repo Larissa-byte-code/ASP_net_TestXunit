@@ -21,15 +21,16 @@ namespace SmarketApiOracle.Services
 
         public async Task<TblProduct> AddAsync(TblProduct product)
         {
-            int nextId = _db.TblProduct.Any()
-                ? _db.TblProduct.Max(p => p.prdId) + 1
-                : 1;
-
-            product.prdId   = nextId;
-            product.prdIdvC = $"Prd-{nextId:D3}-{DateTime.Now.Year}";
-
+            // Étape 1 : insertion → Oracle génère prdId
             _db.TblProduct.Add(product);
             await _db.SaveChangesAsync();
+
+            // Étape 2 : génération du code formaté
+            product.prdIdvC = $"PR-{product.prdId:D3}-{DateTime.Now.Year}";
+
+            // Étape 3 : sauvegarde directe
+            await _db.SaveChangesAsync();
+
             return product;
         }
 

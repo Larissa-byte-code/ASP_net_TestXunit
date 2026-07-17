@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using SmarketApi.Models;
+using SmarketApiOracle.Models;
+
 namespace SmarketApiOracle.Models  
 {
     public class VenteIndexViewModel

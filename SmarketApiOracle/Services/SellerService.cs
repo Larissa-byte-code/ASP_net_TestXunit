@@ -21,20 +21,22 @@ namespace SmarketApiOracle.Services
 
         public async Task<TblSeller> AddAsync(TblSeller seller)
         {
-            int nextId = (_db.TblSeller.Max(s => (int?)s.SellerId) ?? 0) + 1;
-            string year = DateTime.Now.Year.ToString();
+            // Étape 1 : insertion → Oracle génère SellerId
+            _db.TblSeller.Add(seller);
+            await _db.SaveChangesAsync();
 
-            seller.SellerId   = nextId;
-            seller.SellerIdvC = $"Sel-{nextId:D3}-{year}";
+            // Étape 2 : génération du code formaté
+            seller.SellerIdvC = $"Sel-{seller.SellerId:D3}-{DateTime.Now.Year}";
 
-            // Préfixe automatique pour Madagascar
+            // Étape 3 : préfixe automatique pour Madagascar
             if (!string.IsNullOrEmpty(seller.SellerPhone) && !seller.SellerPhone.StartsWith("+261"))
             {
                 seller.SellerPhone = $"+261{seller.SellerPhone}";
             }
 
-            _db.TblSeller.Add(seller);
+            // Étape 4 : sauvegarde directe
             await _db.SaveChangesAsync();
+
             return seller;
         }
 
@@ -45,11 +47,13 @@ namespace SmarketApiOracle.Services
 
             existing.SellerName  = seller.SellerName;
             existing.SellerAge   = seller.SellerAge;
-            existing.SellerPhone = seller.SellerPhone.StartsWith("+261") 
-                ? seller.SellerPhone 
-                : $"+261{seller.SellerPhone}";
             existing.SellerPass  = seller.SellerPass;
             existing.Role        = seller.Role;
+
+            // Préfixe automatique pour Madagascar
+            existing.SellerPhone = seller.SellerPhone.StartsWith("+261")
+                ? seller.SellerPhone
+                : $"+261{seller.SellerPhone}";
 
             await _db.SaveChangesAsync();
             return existing;
