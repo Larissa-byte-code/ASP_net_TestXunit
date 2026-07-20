@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmarketApi.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a27803f6bd7162dd73688ec822593399810b5286")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+613b7cd857917900ff88d82b6edce33f59a4e61b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmarketApi.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmarketApi.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

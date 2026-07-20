@@ -3632,11 +3632,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle.TESTS\\SmarketApiOracle.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle.Tests\\SmarketApiOracle.Tests.csproj",
       "projectName": "SmarketApiOracle.Tests",
-      "projectPath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle.TESTS\\SmarketApiOracle.Tests.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle.Tests\\SmarketApiOracle.Tests.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle.TESTS\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\C#\\SmarketApiOracle.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
